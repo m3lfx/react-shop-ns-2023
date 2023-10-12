@@ -25,8 +25,12 @@ const ProductDetails = ({ match }) => {
         console.log(link)
         let res = await axios.get(link)
         console.log(res)
+        if(!res)
+            setError('Product not found')
         setProduct(res.data.product)
         setLoading(false)
+       
+
     }
     
     useEffect(() => {
@@ -36,7 +40,7 @@ const ProductDetails = ({ match }) => {
         //     alert.error(error);
            
         // }
-    }, [id]);
+    }, [id,]);
 
      return (
         <Fragment>
@@ -92,6 +96,9 @@ const ProductDetails = ({ match }) => {
                                 Submit Your Review
                             </button> 
                                 :*/}
+                                <button id="review_btn" type="button" className="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal" >
+                                Submit Your Review
+                            </button> 
                                 <div className="alert alert-danger mt-5" type='alert'>Login to post your review.</div>
                             {/* } */}
 

@@ -34,7 +34,8 @@ exports.getProducts = async (req,res,next) => {
 		success: true,
 		count: products.length,
 		productsCount,
-		products
+		products,
+		resPerPage,
 	})
 }
 
