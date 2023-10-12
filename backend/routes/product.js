@@ -4,7 +4,7 @@ const router = express.Router();
 
 const {newProduct, getProducts, getSingleProduct, updateProduct, deleteProduct} = require('../controllers/productController');
 const { isAuthenticatedUser, authorizeRoles } = require('../middlewares/auth');
-router.get('/products',isAuthenticatedUser, getProducts)
+router.get('/products', getProducts)
 
 
 router.post('/product/new', isAuthenticatedUser, newProduct)
