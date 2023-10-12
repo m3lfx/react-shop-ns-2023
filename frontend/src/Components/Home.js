@@ -1,7 +1,10 @@
 import React, { Fragment } from 'react'
+import MetaData from './Layout/Metadata'
 
 const Home = () => {
     return (
+        <Fragment>
+            <MetaData title={'Buy Best Products Online'} />
         <div className="container container-fluid">
             <h1 id="products_heading">Latest Products</h1>
             <section id="products" className="container mt-5">
@@ -30,6 +33,7 @@ const Home = () => {
                 </div>
             </section>
         </div>
+        </Fragment>
     )
 }
 
