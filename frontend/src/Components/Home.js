@@ -1,7 +1,12 @@
 import React, { Fragment } from 'react'
 import MetaData from './Layout/Metadata'
+import axios from 'axios';
 
 const Home = () => {
+    const [loading, setLoading] = useState(false)
+    const [products, setProducts] = useState([])
+    const [error, setError] = useState()
+    const [productsCount, setProductsCount] = useState(0)
     return (
         <Fragment>
             <MetaData title={'Buy Best Products Online'} />
