@@ -14,8 +14,9 @@ const Home = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [resPerPage, setResPerPage] = useState(0)
 
-    const getProducts = async () => {
-        let link = `http://localhost:4001/api/v1/products`
+    const getProducts = async (currentPage=1) => {
+        console.log(currentPage)
+        let link = `http://localhost:4001/api/v1/products?page=${currentPage}`
         console.log(link)
         let res = await axios.get(link)
         console.log(res)
@@ -31,8 +32,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getProducts()
-    }, [])
+        getProducts(currentPage)
+    }, [currentPage])
     // console.log(products)
     return (
         <Fragment>
