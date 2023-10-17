@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { useParams } from "react-router-dom"
 import MetaData from './Layout/Metadata'
 import axios from 'axios';
 
