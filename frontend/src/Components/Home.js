@@ -14,10 +14,11 @@ const Home = () => {
     const [productsCount, setProductsCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [resPerPage, setResPerPage] = useState(0)
+    let { keyword } = useParams();
 
-    const getProducts = async (currentPage=1) => {
+    const getProducts = async (currentPage=1, keyword='') => {
         console.log(currentPage)
-        let link = `http://localhost:4001/api/v1/products?page=${currentPage}`
+        let link = `http://localhost:4001/api/v1/products?page=${currentPage}&keyword=${keyword}`
         console.log(link)
         let res = await axios.get(link)
         console.log(res)
@@ -33,8 +34,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getProducts(currentPage)
-    }, [currentPage])
+        getProducts(currentPage, keyword)
+    }, [currentPage, keyword])
     // console.log(products)
     return (
         <Fragment>
