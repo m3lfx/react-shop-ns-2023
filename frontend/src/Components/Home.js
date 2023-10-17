@@ -14,6 +14,7 @@ const Home = () => {
     const [productsCount, setProductsCount] = useState(0)
     const [currentPage, setCurrentPage] = useState(1);
     const [resPerPage, setResPerPage] = useState(0)
+    const [filteredProductsCount, setFilteredProductsCount] = useState(0)
     let { keyword } = useParams();
 
     const getProducts = async (currentPage=1, keyword='') => {
@@ -29,6 +30,10 @@ const Home = () => {
 
     }
     let count = productsCount;
+   
+    if (keyword) {
+        count = filteredProductsCount
+    }
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber)
     }
