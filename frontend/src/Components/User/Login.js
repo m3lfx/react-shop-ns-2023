@@ -33,7 +33,9 @@ const Login = () => {
             authenticate(data, () => navigate("/"))
             
         } catch (error) {
-                toast.error(error.response.data.message)
+            toast.error("invalid user or password", {
+                position: toast.POSITION.BOTTOM_RIGHT
+            })
         }
     }
     const submitHandler = (e) => {

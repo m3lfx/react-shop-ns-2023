@@ -8,6 +8,7 @@ import Loader from './Layout/Loader'
 import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
+import Header from './Layout/Header';
 
 
 const categories = [
@@ -83,6 +84,7 @@ const Home = () => {
         <>
             {loading ? <Loader /> : (<Fragment>
                 <MetaData title={'Buy Best Products Online'} />
+                
                 <div className="container container-fluid">
 
                     <h1 id="products_heading">Latest Products</h1>

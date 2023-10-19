@@ -16,14 +16,12 @@ const Header = () => {
             await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`)
             
             setUser('')
-            toast.success('you logged out')
+           
             logout(()=> navigate('/'))
         } catch (error) {
             toast.error(error.response.data.message)
             
         } 
-        
-        
     }
     const logoutHandler = () => {
         logoutUser();
