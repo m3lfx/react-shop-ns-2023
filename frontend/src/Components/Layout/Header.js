@@ -27,11 +27,13 @@ const Header = () => {
     }
     const logoutHandler = () => {
         logoutUser();
-        alert.success('Logged out successfully.')
+        toast.success('log out', {
+            position: toast.POSITION.BOTTOM_RIGHT
+        });
     }
     useEffect(() => {
         setUser(getUser())
-    }, [user])
+    }, [])
     return (
         <Fragment>
             <nav className="navbar row">
