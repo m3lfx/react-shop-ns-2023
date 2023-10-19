@@ -6,24 +6,40 @@ import { getUser, } from '../../utils/helpers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getToken } from '../../utils/helpers';
 
 const Profile = () => {
     const [loading, setLoading] = useState(true)
     const [user, setUser] = useState('')
+    
 
     const getProfile = async () => {
+        const config = {
+            headers: {
+                // 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            }
+        }
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`)
+            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`, config)
+            console.log(data)
             setUser(data.user)
             setLoading(false)
         } catch (error) {
+            console.log(error)
             toast.error("invalid user or password", {
                 position: toast.POSITION.BOTTOM_RIGHT
             })
         }
-       
+
     }
+    // const getUserToken = async () => {
+    //     const userToken = getToken()
+    //     console.log(userToken)
+    //     setToken(userToken)
+    // }
     useEffect(() => {
+        // getUserToken()
         getProfile()
 
     }, [])
