@@ -1,12 +1,34 @@
 import React, { Fragment, useEffect, useState } from 'react'
 import '../../App.css'
 import Search from './Search'
-import { Link } from 'react-router-dom'
-import { getUser } from '../../utils/helpers';
-
+import { Link, useNavigate } from 'react-router-dom'
+import { getUser, logout } from '../../utils/helpers';
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const Header = () => {
 
     const [user, setUser] = useState('')
+    const navigate = useNavigate()
+    const logoutUser = async () => {
+        
+        try {
+            await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`)
+            
+            setUser('')
+            toast.success('you logged out')
+            logout(()=> navigate('/'))
+        } catch (error) {
+            toast.error(error.response.data.message)
+            
+        } 
+        
+        
+    }
+    const logoutHandler = () => {
+        logoutUser();
+        alert.success('Logged out successfully.')
+    }
     useEffect(() => {
         setUser(getUser())
     }, [user])
@@ -42,8 +64,8 @@ const Header = () => {
                             <Link className="dropdown-item" to="/orders/me">Orders</Link>
                             <Link className="dropdown-item" to="/me">Profile</Link>
 
-                            <Link 
-                            // className="dropdown-item text-danger" to="/" onClick={logoutHandler}
+                            <Link
+                                className="dropdown-item text-danger" to="/" onClick={logoutHandler}
                             >
                                 Logout
                             </Link>
