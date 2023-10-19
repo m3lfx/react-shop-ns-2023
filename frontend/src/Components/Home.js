@@ -38,7 +38,7 @@ const Home = () => {
     const createSliderWithTooltip = Slider.createSliderWithTooltip;
     const Range = createSliderWithTooltip(Slider.Range);
 
-    const getProducts = async (currentPage = 1, keyword = '', price,) => {
+    const getProducts = async (currentPage = 1, keyword = '', price, category='') => {
         let link = `http://localhost:4001/api/v1/products?page=${currentPage}&keyword=${keyword}&price[lte]=${price[1]}&price[gte]=${price[0]}`
         console.log(link)
         let res = await axios.get(link)
@@ -60,8 +60,8 @@ const Home = () => {
     }
 
     useEffect(() => {
-        getProducts(currentPage, keyword, price)
-    }, [currentPage, keyword, price])
+        getProducts(currentPage, keyword, price, category)
+    }, [currentPage, keyword, price, category])
     // console.log(products)
     return (
         <>
