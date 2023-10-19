@@ -6,6 +6,7 @@ import Metadata from '../Layout/Metadata'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import {authenticate} from '../../utils/helpers'
 
 const Login = () => {
 
@@ -29,9 +30,8 @@ const Login = () => {
             }
             const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
             console.log(data)
-            sessionStorage.setItem('token', JSON.stringify(data.token));
-            sessionStorage.setItem('user', JSON.stringify(data.user.name));
-            navigate('/')
+            authenticate(data, () => navigate("/"))
+            
         } catch (error) {
                 toast.error(error.response.data.message)
         }
