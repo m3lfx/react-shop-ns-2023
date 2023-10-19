@@ -39,7 +39,13 @@ const Home = () => {
     const Range = createSliderWithTooltip(Slider.Range);
 
     const getProducts = async (currentPage = 1, keyword = '', price, category='') => {
-        let link = `http://localhost:4001/api/v1/products?page=${currentPage}&keyword=${keyword}&price[lte]=${price[1]}&price[gte]=${price[0]}`
+        
+        
+        let link = `${process.env.REACT_APP_API}/api/v1/products?page=${currentPage}&keyword=${keyword}&price[lte]=${price[1]}&price[gte]=${price[0]}`
+
+        if(category) {
+			link = `${process.env.REACT_APP_API}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}`
+		}
         console.log(link)
         let res = await axios.get(link)
         console.log(res)
@@ -93,7 +99,7 @@ const Home = () => {
                                                 value={price}
                                                 onChange={price => setPrice(price)}
                                             />
-                                            {/* <hr className="my-5" />
+                                            <hr className="my-5" />
                                         <div className="mt-5">
                                             <h4 className="mb-3">
                                                 Categories
@@ -112,7 +118,7 @@ const Home = () => {
                                                     </li>
                                                 ))}
                                             </ul>
-                                        </div> */}
+                                        </div>
 
                                         </div>
                                     </div>
