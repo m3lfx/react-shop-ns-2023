@@ -20,25 +20,26 @@ const Login = () => {
         position: toast.POSITION.BOTTOM_RIGHT
     });
 
-    // const login = async (email, password) => {
-    //     try {
-    //         const config = {
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             }
-    //         }
-    //         const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
-    //         console.log(data)
-    //     } catch (error) {
-    //             toast.error(error.response.data.message)
-    //     }
-    // }
-    
-
-    // const submitHandler = (e) => {
-    //     e.preventDefault();
-    //     login(email, password)
-    // }
+    const login = async (email, password) => {
+        try {
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
+            console.log(data)
+            sessionStorage.setItem('token', JSON.stringify(data.token));
+            sessionStorage.setItem('user', JSON.stringify(data.user.name));
+            navigate('/')
+        } catch (error) {
+                toast.error(error.response.data.message)
+        }
+    }
+    const submitHandler = (e) => {
+        e.preventDefault();
+        login(email, password)
+    }
 
     return (
         <Fragment>
@@ -49,7 +50,7 @@ const Login = () => {
                     <div className="row wrapper">
                         <div className="col-10 col-lg-5">
                             <form className="shadow-lg" 
-                            // onSubmit={submitHandler}
+                            onSubmit={submitHandler}
                             >
                                 <h1 className="mb-3">Login</h1>
                                 <div className="form-group">
