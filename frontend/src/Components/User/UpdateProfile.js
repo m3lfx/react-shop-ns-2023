@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getToken } from '../../utils/helpers';
 
 const UpdateProfile = () => {
     const [name, setName] = useState('')
@@ -16,8 +17,14 @@ const UpdateProfile = () => {
     let navigate = useNavigate();
 
     const getProfile = async () => {
+        const config = {
+            headers: {
+                // 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${getToken()}`
+            }
+        }
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`)
+            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`, config)
             setUser(data.user)
             setLoading(false)
            
@@ -81,6 +88,7 @@ const UpdateProfile = () => {
         reader.readAsDataURL(e.target.files[0])
 
     }
+    console.log(user)
     return (
         <Fragment>
             <MetaData title={'Update Profile'} />

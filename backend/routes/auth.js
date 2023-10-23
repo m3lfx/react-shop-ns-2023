@@ -21,8 +21,8 @@ router.get('/logout', logout);
 router.post('/password/forgot', forgotPassword);
 router.put('/password/reset/:token', resetPassword);
 router.get('/me', isAuthenticatedUser, getUserProfile)
-router.put('/password/update', isAuthenticatedUser, updatePassword)
-router.put('/me/update', updateProfile)
+router.put('/password/update', isAuthenticatedUser, upload.single("avatar"), updatePassword)
+router.put('/me/update', isAuthenticatedUser, updateProfile)
 router.get('/admin/users',  allUsers)
 router.get('/admin/user/:id', getUserDetails)
 
