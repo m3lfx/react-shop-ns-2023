@@ -9,7 +9,7 @@ import Register from './Components/User/Register';
 import Profile from './Components/User/Profile'
 import UpdateProfile from './Components/User/UpdateProfile';
 import ForgotPassword from './Components/User/ForgotPassword';
-
+import NewPassword from './Components/User/NewPassword';
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
           <Route path="/me/update" element={<UpdateProfile />} exact="true"
           />
           <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
+          <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
         </Routes>
         <Footer />
       </Router>
