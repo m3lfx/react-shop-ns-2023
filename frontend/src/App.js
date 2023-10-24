@@ -8,6 +8,7 @@ import Login from './Components/User/Login'
 import Register from './Components/User/Register';
 import Profile from './Components/User/Profile'
 import UpdateProfile from './Components/User/UpdateProfile';
+import ForgotPassword from './Components/User/ForgotPassword';
 
 
 function App() {
@@ -23,11 +24,9 @@ function App() {
           <Route path="/login" element={<Login />} exact="true" />
           <Route path="/register" element={<Register />} exact="true" />
           <Route path="/me" element={<Profile />} exact="true" />
-          <Route path="/me/update"
-            element={<UpdateProfile />
-            }
-            exact="true"
+          <Route path="/me/update" element={<UpdateProfile />} exact="true"
           />
+          <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
         </Routes>
         <Footer />
       </Router>
