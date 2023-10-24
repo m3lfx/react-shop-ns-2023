@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from './Components/Layout/Header'
 import Footer from './Components/Layout/Footer'
@@ -11,6 +11,7 @@ import UpdateProfile from './Components/User/UpdateProfile';
 import ForgotPassword from './Components/User/ForgotPassword';
 import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
+import Cart from './Components/Cart/Cart';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
@@ -19,10 +20,10 @@ function App() {
   const [state, setState] = useState({
     cartItems: localStorage.getItem('cartItems')
       ? JSON.parse(localStorage.getItem('cartItems'))
-      : [], 
-      shippingInfo: localStorage.getItem('shippingInfo')
-        ? JSON.parse(localStorage.getItem('shippingInfo'))
-        : {},
+      : [],
+    shippingInfo: localStorage.getItem('shippingInfo')
+      ? JSON.parse(localStorage.getItem('shippingInfo'))
+      : {},
   })
   const addItemToCart = async (id, quantity) => {
     console.log(id, quantity)
@@ -68,10 +69,18 @@ function App() {
     }
 
   }
+
+  const removeItemFromCart = async (id) => {
+    setState({
+      ...state,
+      cartItems: state.cartItems.filter(i => i.product !== id)
+    })
+    localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+  }
   return (
     <div className="App">
       <Router>
-        <Header />
+        <Header cartItems={state.cartItems} />
         <Routes>
           <Route path="/" element={<Home />} exact="true" />
           <Route path="/product/:id" element={<ProductDetails cartItems={state.cartItems} addItemToCart={addItemToCart} />} exact="true" />
@@ -85,6 +94,8 @@ function App() {
           <Route path="/password/forgot" element={<ForgotPassword />} exact="true" />
           <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
           <Route path="/password/update" element={<UpdatePassword />} />
+
+          <Route path="/cart" element={<Cart cartItems={state.cartItems} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />} exact="true" />
         </Routes>
         <Footer />
       </Router>
