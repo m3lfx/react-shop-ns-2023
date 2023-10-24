@@ -11,6 +11,9 @@ import UpdateProfile from './Components/User/UpdateProfile';
 import ForgotPassword from './Components/User/ForgotPassword';
 import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 function App() {
   const [state, setState] = useState({
@@ -21,6 +24,50 @@ function App() {
         ? JSON.parse(localStorage.getItem('shippingInfo'))
         : {},
   })
+  const addItemToCart = async (id, quantity) => {
+    console.log(id, quantity)
+    try {
+      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/${id}`)
+      const item = {
+        product: data.product._id,
+        name: data.product.name,
+        price: data.product.price,
+        image: data.product.images[0].url,
+        stock: data.product.stock,
+        quantity: quantity
+      }
+
+      const isItemExist = state.cartItems.find(i => i.product === item.product)
+      console.log(isItemExist, state)
+      // setState({
+      //   ...state,
+      //   cartItems: [...state.cartItems, item]
+      // })
+      if (isItemExist) {
+        setState({
+          ...state,
+          cartItems: state.cartItems.map(i => i.product === isItemExist.product ? item : i)
+        })
+      }
+      else {
+        setState({
+          ...state,
+          cartItems: [...state.cartItems, item]
+        })
+      }
+
+      toast.success('Item Added to Cart', {
+        position: toast.POSITION.BOTTOM_RIGHT
+      })
+
+    } catch (error) {
+      toast.error(error, {
+        position: toast.POSITION.TOP_LEFT
+      });
+      // navigate('/')
+    }
+
+  }
   return (
     <div className="App">
       <Router>
