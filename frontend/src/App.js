@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from './Components/Layout/Header'
 import Footer from './Components/Layout/Footer'
@@ -13,6 +13,14 @@ import NewPassword from './Components/User/NewPassword';
 import UpdatePassword from './Components/User/UpdatePassword';
 
 function App() {
+  const [state, setState] = useState({
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems'))
+      : [], 
+      shippingInfo: localStorage.getItem('shippingInfo')
+        ? JSON.parse(localStorage.getItem('shippingInfo'))
+        : {},
+  })
   return (
     <div className="App">
       <Router>
