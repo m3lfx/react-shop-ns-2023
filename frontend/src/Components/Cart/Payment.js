@@ -39,7 +39,7 @@ const Payment = ({cartItems, shippingInfo}) => {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
            
-            sessionStorage.removeItem('orderInfo')
+            // sessionStorage.removeItem('orderInfo')
             navigate('/success')
     
         } catch (error) {
