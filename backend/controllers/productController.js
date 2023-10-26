@@ -1,15 +1,15 @@
 const Product = require('../models/product')
 const APIFeatures = require('../utils/apiFeatures');
 
-exports.newProduct = async (req, res, next) => {
+// exports.newProduct = async (req, res, next) => {
 	
-	req.body.user = req.user.id;
-	const product = await Product.create(req.body);
-	res.status(201).json({
-		success: true,
-		product
-	})
-}
+// 	req.body.user = req.user.id;
+// 	const product = await Product.create(req.body);
+// 	res.status(201).json({
+// 		success: true,
+// 		product
+// 	})
+// }
 
 // exports.getProducts = async (req, res, next) => {
 // 	const products = await Product.find({});
@@ -102,4 +102,53 @@ exports.getAdminProducts = async (req, res, next) => {
 		products
 	})
 
+}
+
+exports.newProduct = async (req, res, next) => {
+
+	let images = []
+	if (typeof req.body.images === 'string') {
+		images.push(req.body.images)
+	} else {
+		images = req.body.images
+	}
+
+	let imagesLinks = [];
+
+	for (let i = 0; i < images.length; i++) {
+		let imageDataUri = images[i]
+		// console.log(imageDataUri)
+		try {
+			const result = await cloudinary.v2.uploader.upload(`${imageDataUri}`, {
+				folder: 'products',
+				width: 150,
+				crop: "scale",
+			});
+	
+			 imagesLinks.push({
+				public_id: result.public_id,
+				url: result.secure_url
+			})
+			
+		} catch (error) {
+			console.log(error)
+		}
+		
+	}
+
+	req.body.images = imagesLinks
+	req.body.user = req.user.id;
+
+	const product = await Product.create(req.body);
+	if (!product)
+		return res.status(400).json({
+			success: false,
+			message: 'Product not created'
+		})
+
+
+	res.status(201).json({
+		success: true,
+		product
+	})
 }
