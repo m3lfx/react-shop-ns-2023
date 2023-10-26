@@ -1,5 +1,6 @@
 const Product = require('../models/product')
 const APIFeatures = require('../utils/apiFeatures');
+const cloudinary = require('cloudinary')
 
 // exports.newProduct = async (req, res, next) => {
 	

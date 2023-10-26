@@ -22,6 +22,8 @@ import OrderSuccess from './Components/Cart/OrderSuccess';
 import ListOrders from './Components/Order/ListOrders';
 import OrderDetails from './Components/Order/OrderDetails';
 import Dashboard from './Components/Admin/Dashboard';
+import NewProduct from './Components/Admin/NewProduct';
+import ProductsList from './Components/Admin/ProductsList';
 
 function App() {
   const [state, setState] = useState({
@@ -123,6 +125,8 @@ function App() {
           <Route path="/order/:id" element={<OrderDetails />}  />
 
           <Route path="/dashboard" element={<Dashboard />}  />
+          <Route path="/admin/product" element={<NewProduct  />}  />
+          <Route path="/admin/products" element={<ProductsList />}  />
         </Routes>
         <Footer />
       </Router>
