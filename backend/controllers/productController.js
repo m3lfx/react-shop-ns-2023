@@ -92,3 +92,14 @@ exports.deleteProduct = async (req, res, next) => {
 		message: 'Product deleted'
 	})
 }
+
+exports.getAdminProducts = async (req, res, next) => {
+
+	const products = await Product.find();
+
+	res.status(200).json({
+		success: true,
+		products
+	})
+
+}
