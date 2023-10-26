@@ -17,6 +17,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios';
 import Shipping from './Components/Cart/Shipping';
 import ConfirmOrder from './Components/Cart/ConfirmOrder';
+import Payment from './Components/Cart/Payment';
 
 function App() {
   const [state, setState] = useState({
@@ -112,6 +113,7 @@ function App() {
           />}
           />
           <Route path="/confirm" element={<ConfirmOrder cartItems={state.cartItems} shippingInfo={state.shippingInfo} />}  />
+          <Route path="/payment" element={<Payment cartItems={state.cartItems} shippingInfo={state.shippingInfo} />}  />
         </Routes>
         <Footer />
       </Router>
