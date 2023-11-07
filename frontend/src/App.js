@@ -133,7 +133,7 @@ function App() {
 
           {/* <Route path="/dashboard" element={<Dashboard />} /> */}
           <Route path="/admin/product" element={<NewProduct />} />
-          <Route path="/admin/products" element={<ProductsList />} />
+          
           <Route
             path="/admin/product/:id"
             element={<UpdateProduct />} />
@@ -153,6 +153,14 @@ function App() {
             element={
               <ProtectedRoute isAdmin={true}>
                 <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/products"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <ProductsList />
               </ProtectedRoute>
             }
           />
