@@ -245,3 +245,21 @@ exports.deleteUser = async (req, res, next) => {
         success: true,
     })
 }
+
+exports.updateUser = async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role
+    }
+
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        // useFindAndModify: false
+    })
+
+    return res.status(200).json({
+        success: true
+    })
+}

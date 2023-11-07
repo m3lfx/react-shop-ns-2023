@@ -9,7 +9,8 @@ const { registerUser, loginUser, logout, forgotPassword,
     updateProfile,
     allUsers,
     getUserDetails,
-     deleteUser
+    deleteUser,
+    updateUser,
 
 
 } = require('../controllers/authController');
@@ -22,9 +23,9 @@ router.get('/logout', logout);
 router.post('/password/forgot', forgotPassword);
 router.put('/password/reset/:token', resetPassword);
 router.get('/me', isAuthenticatedUser, getUserProfile)
-router.put('/password/update', isAuthenticatedUser,  updatePassword)
+router.put('/password/update', isAuthenticatedUser, updatePassword)
 router.put('/me/update', isAuthenticatedUser, upload.single("avatar"), updateProfile)
-router.get('/admin/users',  allUsers)
+router.get('/admin/users', allUsers)
 // router.get('/admin/user/:id', getUserDetails)
-router.route('/admin/user/:id').get(isAuthenticatedUser, getUserDetails ).delete(isAuthenticatedUser, deleteUser)
+router.route('/admin/user/:id').get(isAuthenticatedUser, getUserDetails).delete(isAuthenticatedUser, deleteUser).put(isAuthenticatedUser, updateUser)
 module.exports = router;
