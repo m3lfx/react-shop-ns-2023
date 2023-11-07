@@ -27,6 +27,7 @@ import ProductsList from './Components/Admin/ProductsList';
 import UpdateProduct from './Components/Admin/UpdateProduct';
 import OrdersList from './Components/Admin/OrdersList';
 import ProcessOrder from './Components/Admin/ProcessOrder';
+import UsersList from './Components/Admin/UsersList';
 function App() {
   const [state, setState] = useState({
     cartItems: localStorage.getItem('cartItems')
@@ -139,6 +140,9 @@ function App() {
           <Route
             path="/admin/order/:id"
             element={<ProcessOrder />} />
+            <Route
+            path="/admin/users"
+            element={<UsersList />} />
         </Routes>
         <Footer />
       </Router>
