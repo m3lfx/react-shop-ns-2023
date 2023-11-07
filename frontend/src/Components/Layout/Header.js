@@ -6,7 +6,7 @@ import { getUser, logout } from '../../utils/helpers';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-const Header = ({cartItems}) => {
+const Header = ({ cartItems }) => {
 
     const [user, setUser] = useState('')
     const navigate = useNavigate()
@@ -35,17 +35,19 @@ const Header = ({cartItems}) => {
     return (
         <Fragment>
             <nav className="navbar row">
-                <div className="col-12 col-md-3">
-                    <div className="navbar-brand">
-                        <img src="./images/shopit_logo.png" />
+                <Link to="/" style={{ textDecoration: 'none' }} >
+                    <div className="col-12 col-md-3">
+                        <div className="navbar-brand">
+                            <img src="./images/shopit_logo.png" />
+                        </div>
                     </div>
-                </div>
+                </Link>
                 <div className="col-12 col-md-6 mt-2 mt-md-0">
                     <Search />
                 </div>
 
                 <div className="col-12 col-md-3 mt-4 mt-md-0 text-center">
-                <Link to="/cart" style={{ textDecoration: 'none' }} >
+                    <Link to="/cart" style={{ textDecoration: 'none' }} >
                         <span id="cart" className="ml-3">Cart</span>
                         <span className="ml-1" id="cart_count">{cartItems.length}</span>
                         {/*<span className="ml-1" id="cart_count">2</span>*/}
@@ -76,8 +78,8 @@ const Header = ({cartItems}) => {
                             </Link>
                         </div>
                     </div>) : <Link to="/login" className="btn ml-4" id="login_btn">Login</Link>}
-                    
-                    
+
+
                 </div>
             </nav>
         </Fragment>
