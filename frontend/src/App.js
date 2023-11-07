@@ -127,6 +127,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />}  />
           <Route path="/admin/product" element={<NewProduct  />}  />
           <Route path="/admin/products" element={<ProductsList />}  />
+          <Route
+            path="/admin/product/:id"
+            element={<UpdateProduct />} />
         </Routes>
         <Footer />
       </Router>
