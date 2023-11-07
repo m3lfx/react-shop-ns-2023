@@ -8,7 +8,8 @@ const { registerUser, loginUser, logout, forgotPassword,
     updatePassword,
     updateProfile,
     allUsers,
-    getUserDetails
+    getUserDetails,
+     deleteUser
 
 
 } = require('../controllers/authController');
@@ -24,6 +25,6 @@ router.get('/me', isAuthenticatedUser, getUserProfile)
 router.put('/password/update', isAuthenticatedUser,  updatePassword)
 router.put('/me/update', isAuthenticatedUser, upload.single("avatar"), updateProfile)
 router.get('/admin/users',  allUsers)
-router.get('/admin/user/:id', getUserDetails)
-
+// router.get('/admin/user/:id', getUserDetails)
+router.route('/admin/user/:id').get(isAuthenticatedUser, getUserDetails ).delete(isAuthenticatedUser, deleteUser)
 module.exports = router;

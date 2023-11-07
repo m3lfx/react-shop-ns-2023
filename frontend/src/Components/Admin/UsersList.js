@@ -7,9 +7,10 @@ import 'react-toastify/dist/ReactToastify.css';
 import MetaData from '../Layout/Metadata'
 import Loader from '../Layout/Loader'
 import Sidebar from './SideBar'
-import { errMsg, successMsg } from '../../utils/helpers';
+
 import axios from 'axios';
-import { getToken } from '../../utils/helpers';
+import { getToken, successMsg, errMsg } from '../../utils/helpers';
+import Toast from '../Layout/Toast';
 
 const UsersList = () => {
     const [loading, setLoading] = useState(true)
