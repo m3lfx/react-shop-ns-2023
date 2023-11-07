@@ -10,7 +10,7 @@ router.get('/products', getProducts)
 
 
 router.get('/product/:id', getSingleProduct);
-router.get('/admin/products', getAdminProducts);
+router.get('/admin/products', isAuthenticatedUser, authorizeRoles('admin'), getAdminProducts);
 router.route('/admin/product/:id', isAuthenticatedUser, authorizeRoles('admin',)).put(upload.array('images', 10), updateProduct).delete(deleteProduct);
 router.post('/admin/product/new', isAuthenticatedUser, upload.array('images', 10), newProduct);
 
