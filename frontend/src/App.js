@@ -24,6 +24,7 @@ import OrderDetails from './Components/Order/OrderDetails';
 import Dashboard from './Components/Admin/Dashboard';
 import NewProduct from './Components/Admin/NewProduct';
 import ProductsList from './Components/Admin/ProductsList';
+import UpdateProduct from './Components/Admin/UpdateProduct';
 
 function App() {
   const [state, setState] = useState({

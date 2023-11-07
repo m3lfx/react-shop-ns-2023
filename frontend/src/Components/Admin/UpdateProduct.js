@@ -1,5 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import MetaData from '../Layout/MetaData'
+import MetaData from '../Layout/Metadata'
 import Sidebar from './SideBar'
 
 import { useParams, useNavigate } from 'react-router-dom';
