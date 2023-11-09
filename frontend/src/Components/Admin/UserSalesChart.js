@@ -19,7 +19,6 @@ const UserSalesChart = ({ data }) => {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
     const userSales = async () => {
-
         try {
             const config = {
                 headers: {
