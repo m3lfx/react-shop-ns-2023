@@ -214,7 +214,8 @@ exports.createProductReview = async (req, res, next) => {
 	)
 	if (isReviewed) {
 		product.reviews.forEach(review => {
-			if (review.user.toString() === req.user._id.toString()) {
+			console.log(review)
+			if (review.user && (review.user.toString() === req.user._id.toString())) {
 				review.comment = comment;
 				review.rating = rating;
 			}
