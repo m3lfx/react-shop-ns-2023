@@ -194,7 +194,6 @@ exports.customerSales = async (req, res, next) => {
 }
 exports.salesPerMonth = async (req, res, next) => {
     const salesPerMonth = await Order.aggregate([
-
         {
             $group: {
                 // _id: {month: { $month: "$paidAt" } },
