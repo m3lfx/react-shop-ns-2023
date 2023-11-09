@@ -119,11 +119,11 @@ const ProductDetails = ({ addItemToCart, cartItems }) => {
             setErrorReview('')
         }
         if (success) {
-            successMsg('Reivew posted successfully')
+            successMsg('Review posted successfully')
             setSuccess(false)
 
         }
-    }, [id,]);
+    }, [id, error, errorReview, success]);
 
     localStorage.setItem('cartItems', JSON.stringify(cartItems))
 
