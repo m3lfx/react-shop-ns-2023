@@ -111,6 +111,27 @@ exports.deleteOrder = async (req, res, next) => {
     })
 }
 
+exports.totalOrders = async (req, res, next) => {
+    const totalOrders = await Order.aggregate([
+        {
+            $group: {
+                _id: null,
+                count: { $sum: 1 }
+            }
+        }
+    ])
+    if (!totalOrders) {
+        return res.status(404).json({
+            message: 'error total orders',
+        })
+    }
+    res.status(200).json({
+        success: true,
+        totalOrders
+    })
+
+}
+
 exports.totalSales = async (req, res, next) => {
     const totalSales = await Order.aggregate([
         {

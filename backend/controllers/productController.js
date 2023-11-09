@@ -1,4 +1,5 @@
 const Product = require('../models/product')
+const Order = require('../models/order')
 const APIFeatures = require('../utils/apiFeatures');
 const cloudinary = require('cloudinary')
 
@@ -279,7 +280,7 @@ exports.productSales = async (req, res, next) => {
     console.log(totalSales)
     const sales = await Order.aggregate([
         { $project: { _id: 0, "orderItems": 1, totalPrice: 1 } },
-        { $unwind: "$orderItems" },
+         { $unwind: "$orderItems" },
         {
             $group: {
                 _id: { product: "$orderItems.name" },
@@ -287,7 +288,7 @@ exports.productSales = async (req, res, next) => {
             },
         },
     ])
-	// return console.log(sales)
+	console.log("sales", sales)
     
     if (!totalSales) {
 		return res.status(404).json({
