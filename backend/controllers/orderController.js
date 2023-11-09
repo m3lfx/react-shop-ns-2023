@@ -170,33 +170,33 @@ exports.customerSales = async (req, res, next) => {
         // },
 
         { $unwind: "$userDetails" },
-        {
-            $group: {
-                _id: "$user",
-                total: { $sum: "$totalPrice" },
-                doc: { "$first": "$$ROOT" },
-
-            }
-        },
-
-        {
-            $replaceRoot: {
-                newRoot: { $mergeObjects: [{ total: '$total' }, '$doc'] },
-            },
-        },
         // {
         //     $group: {
-        //         _id: "$userDetails.name",
-        //         total: { $sum: "$totalPrice" }
+        //         _id: "$user",
+        //         total: { $sum: "$totalPrice" },
+        //         doc: { "$first": "$$ROOT" },
+
         //     }
         // },
+
+        // {
+        //     $replaceRoot: {
+        //         newRoot: { $mergeObjects: [{ total: '$total' }, '$doc'] },
+        //     },
+        // },
         {
-            $project: {
-                _id: 0,
-                "userDetails.name": 1,
-                total: 1,
+            $group: {
+                _id: "$userDetails.name",
+                total: { $sum: "$totalPrice" }
             }
         },
+        // {
+        //     $project: {
+        //         _id: 0,
+        //         "userDetails.name": 1,
+        //         total: 1,
+        //     }
+        // },
         { $sort: { total: -1 } },
 
     ])
