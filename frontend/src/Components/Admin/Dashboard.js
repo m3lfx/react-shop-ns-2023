@@ -9,6 +9,10 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+import UserSalesChart from './UserSalesChart';
+import MonthlySalesChart from './MonthlySalesChart';
+import ProductSalesChart from './ProductSalesChart';
+
 const Dashboard = () => {
 
     const [products, setProducts] = useState([])
@@ -136,6 +140,15 @@ const Dashboard = () => {
                         </Fragment>
                     )}
                 </div>
+                <Fragment>
+                        <UserSalesChart />
+                    </Fragment>
+                    <Fragment>
+                        <MonthlySalesChart />
+                    </Fragment>
+                    <Fragment>
+                        <ProductSalesChart />
+                    </Fragment>
             </div>
         </Fragment >
     )
