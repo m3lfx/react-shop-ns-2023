@@ -1,10 +1,10 @@
 import { legacy_createStore as createStore, combineReducers, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
+import {thunk} from 'redux-thunk';
 
-import { productReducer } from './reducers/productReducers'
+import { productsReducer } from './reducers/productReducers'
 
 const reducer = combineReducers({
-    products: productReducer,
+    products: productsReducer,
 
 })
 

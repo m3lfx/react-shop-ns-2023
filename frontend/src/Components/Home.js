@@ -1,6 +1,8 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { useParams } from "react-router-dom"
 import MetaData from './Layout/Metadata'
+import { useDispatch, useSelector } from 'react-redux'
+import { getProducts } from '../actions/productActions'
 import axios from 'axios';
 
 import Product from './Product/Product';
@@ -9,6 +11,7 @@ import Pagination from 'react-js-pagination'
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import Header from './Layout/Header';
+
 
 
 const categories = [
@@ -26,36 +29,20 @@ const categories = [
     'Home'
 ]
 const Home = () => {
-    const [loading, setLoading] = useState(true)
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState()
-    const [productsCount, setProductsCount] = useState(0)
+    const dispatch = useDispatch();
+    const {loading, products, error, productsCount } = useSelector(state => state.products);
+    
     const [currentPage, setCurrentPage] = useState(1);
     const [resPerPage, setResPerPage] = useState(0)
     const [filteredProductsCount, setFilteredProductsCount] = useState(0)
     const [price, setPrice] = useState([1, 1000]);
-    const [category, setCategory] = useState('');
+    const[category, setCategory] = useState('')
     let { keyword } = useParams();
 
     const createSliderWithTooltip = Slider.createSliderWithTooltip;
     const Range = createSliderWithTooltip(Slider.Range);
 
-    const getProducts = async (currentPage = 1, keyword = '', price, category = '') => {
-        let link = `${process.env.REACT_APP_API}/api/v1/products?page=${currentPage}&keyword=${keyword}&price[lte]=${price[1]}&price[gte]=${price[0]}`
-
-        if (category) {
-            link = `${process.env.REACT_APP_API}/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}`
-        }
-        console.log(link)
-        let res = await axios.get(link)
-        console.log(res)
-        setProducts(res.data.products)
-        setResPerPage(res.data.resPerPage)
-        setProductsCount(res.data.productsCount)
-        setFilteredProductsCount(res.data.filteredProductsCount)
-        setLoading(false)
-
-    }
+   
     let count = productsCount;
 
     if (keyword) {
@@ -75,10 +62,15 @@ const Home = () => {
             
         }
     }
-
     useEffect(() => {
-        getProducts(currentPage, keyword, price, category)
-    }, [currentPage, keyword, price, category])
+        if(error){
+			// return alert.error(error)
+            console.log(error)
+		}
+        dispatch(getProducts(currentPage, keyword,  price, category))
+    }, [dispatch, error, currentPage, keyword, price, category]);
+
+   
     // console.log(products)
     return (
         <>
