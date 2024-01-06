@@ -15,6 +15,7 @@ export const productsReducer = (state = { products: [] }, action) => {
         case ALL_PRODUCTS_REQUEST:
         case ADMIN_PRODUCTS_REQUEST:
             return {
+                ...state,
                 loading: true,
                 products: []
             }
