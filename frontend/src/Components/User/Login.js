@@ -44,7 +44,7 @@ const Login = () => {
         login(email, password)
     }
 
-    useEffect(() => {
+    useEffect(() => { 
         if (getUser() && redirect === 'shipping' ) {
              navigate(`/${redirect}`)
         }

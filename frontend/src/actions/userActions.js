@@ -40,6 +40,8 @@ import {
 
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getToken, } from '../utils/helpers'
+
 export const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_REQUEST })
@@ -56,6 +58,34 @@ export const register = (userData) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: REGISTER_USER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const login = (email, password) => async (dispatch) => {
+    const notify = (error) => toast.error(error, {
+        position: toast.POSITION.BOTTOM_CENTER
+    });
+    try {
+        dispatch({ type: LOGIN_REQUEST })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                // 'Authorization': `Bearer ${getToken()}`
+            }
+        }
+
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
+        dispatch({
+            type: LOGIN_SUCCESS,
+            payload: data.user
+        })
+    } catch (error) {
+        console.log(error.response)
+        notify(error)
+        dispatch({
+            type: LOGIN_FAIL,
             payload: error.response.data.message
         })
     }
