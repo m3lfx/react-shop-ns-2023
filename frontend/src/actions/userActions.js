@@ -41,7 +41,8 @@ import {
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken, } from '../utils/helpers'
-
+import { authenticate } from '../utils/helpers'
+import {  useNavigate, } from 'react-router-dom'
 export const register = (userData) => async (dispatch) => {
     try {
         dispatch({ type: REGISTER_USER_REQUEST })
@@ -68,6 +69,7 @@ export const login = (email, password) => async (dispatch) => {
         position: toast.POSITION.BOTTOM_CENTER
     });
     try {
+        let navigate = useNavigate()
         dispatch({ type: LOGIN_REQUEST })
         const config = {
             headers: {
@@ -77,6 +79,7 @@ export const login = (email, password) => async (dispatch) => {
         }
 
         const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
+        // authenticate(data, () => navigate("/"))
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
