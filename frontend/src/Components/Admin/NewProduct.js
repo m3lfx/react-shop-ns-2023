@@ -51,11 +51,9 @@ const NewProduct = () => {
         formData.set('category', category);
         formData.set('stock', stock);
         formData.set('seller', seller);
-
         images.forEach(image => {
             formData.append('images', image)
         })
-        
         dispatch(newProduct(formData))
     }
 
