@@ -5,13 +5,15 @@ import {
     productsReducer,
     productDetailsReducer,
     newProductReducer,
-    
+    productReducer,
+
 } from './reducers/productReducers'
 
 const reducer = combineReducers({
     products: productsReducer,
     productDetails: productDetailsReducer,
     newProduct: newProductReducer,
+    product: productReducer,
 
 })
 

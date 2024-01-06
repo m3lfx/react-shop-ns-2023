@@ -67,8 +67,6 @@ const ProductsList = () => {
         }
 
         if (isDeleted) {
-            
-           
             dispatch({ type: DELETE_PRODUCT_RESET })
             toast.success('Product deleted successfully', {
                 position: toast.POSITION.BOTTOM_RIGHT
