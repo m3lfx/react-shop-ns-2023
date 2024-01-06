@@ -54,6 +54,7 @@ const ProductsList = () => {
             toast.error(error, {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
+            dispatch(clearErrors())
         }
 
         if (deleteError) {
