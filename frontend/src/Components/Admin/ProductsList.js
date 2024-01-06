@@ -9,14 +9,21 @@ import { getToken } from '../../utils/helpers';
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+import {
+    getAdminProducts,
+    clearErrors,
+} from '../../actions/productActions'
 
 const ProductsList = () => {
-    const [products, setProducts] = useState([])
-    const [error, setError] = useState('')
+    const dispatch = useDispatch();
+    const { loading, error, products } = useSelector(state => state.products)
+    // const [products, setProducts] = useState([])
+    // const [error, setError] = useState('')
     const [deleteError, setDeleteError] = useState('')
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
     const [isDeleted, setIsDeleted] = useState(false)
 
     let navigate = useNavigate()
