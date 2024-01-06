@@ -27,28 +27,28 @@ const ProductsList = () => {
     const [isDeleted, setIsDeleted] = useState(false)
 
     let navigate = useNavigate()
-    const getAdminProducts = async () => {
-        try {
+    // const getAdminProducts = async () => {
+    //     try {
 
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${getToken()}`
-                }
-            }
+    //         const config = {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 'Authorization': `Bearer ${getToken()}`
+    //             }
+    //         }
 
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/admin/products`, config)
-            console.log(data)
-            setProducts(data.products)
-            setLoading(false)
-        } catch (error) {
+    //         const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/admin/products`, config)
+    //         console.log(data)
+    //         setProducts(data.products)
+    //         setLoading(false)
+    //     } catch (error) {
 
-            setError(error.response.data.message)
+    //         setError(error.response.data.message)
 
-        }
-    }
+    //     }
+    // }
     useEffect(() => {
-        getAdminProducts()
+        dispatch(getAdminProducts())
 
         if (error) {
             toast.error(error, {
@@ -83,7 +83,7 @@ const ProductsList = () => {
             const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/admin/product/${id}`, config)
 
             setIsDeleted(data.success)
-            setLoading(false)
+            // setLoading(false)
         } catch (error) {
             setDeleteError(error.response.data.message)
 

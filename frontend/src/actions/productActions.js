@@ -8,12 +8,9 @@ import { ALL_PRODUCTS_REQUEST,
 	ADMIN_PRODUCTS_REQUEST,
 	ADMIN_PRODUCTS_SUCCESS,
 	ADMIN_PRODUCTS_FAIL,
-
-
-	
     CLEAR_ERRORS 
    } from '../constants/productConstants';
-   import { getToken,  } from '../../utils/helpers'
+   import { getToken,  } from '../utils/helpers'
    export const getProducts = (currentPage = 1, keyword = '', price, category = '') => async (dispatch) => {
 	try {
 		dispatch({
