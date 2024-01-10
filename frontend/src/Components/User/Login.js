@@ -45,8 +45,8 @@ const Login = () => {
     const submitHandler = (e) => {
         e.preventDefault();
         dispatch(login(email, password))
-        authenticate(user, () => navigate("/"))
-        
+        console.log(user)
+       
     }
 
     useEffect(() => {

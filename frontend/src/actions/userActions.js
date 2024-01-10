@@ -74,19 +74,19 @@ export const login = (email, password) => async (dispatch) => {
         const config = {
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${getToken()}`
-            }
+               },
+            withCredentials: true,
         }
 
         const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
-        // authenticate(data, () => navigate("/"))
+       
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: data.user
+            payload: data
         })
     } catch (error) {
         console.log(error.response)
-        notify(error)
+      
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message
