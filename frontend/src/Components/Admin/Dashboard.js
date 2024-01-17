@@ -22,9 +22,9 @@ const Dashboard = () => {
     const [error, setError] = useState('')
     const [users, setUsers] = useState([])
     const [orders, setOrders] = useState([])
-    const [loading, setLoading] = useState(true)
+    // const [loading, setLoading] = useState(true)
     const [totalAmount, setTotalAmount] = useState([])
-    const { products,  } = useSelector(state => state.products)
+    const { products, loading  } = useSelector(state => state.products)
     let outOfStock = 0;
     products.forEach(product => {
         if (product.stock === 0) {
@@ -55,7 +55,7 @@ const Dashboard = () => {
         dispatch(getAdminProducts())
         // allOrders()
         // allUsers()
-    }, [])
+    }, [dispatch])
 
     return (
         <Fragment>
