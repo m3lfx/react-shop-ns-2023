@@ -65,11 +65,8 @@ export const register = (userData) => async (dispatch) => {
 }
 
 export const login = (email, password) => async (dispatch) => {
-    const notify = (error) => toast.error(error, {
-        position: toast.POSITION.BOTTOM_CENTER
-    });
     try {
-        let navigate = useNavigate()
+      
         dispatch({ type: LOGIN_REQUEST })
         const config = {
             headers: {
@@ -79,19 +76,84 @@ export const login = (email, password) => async (dispatch) => {
         }
 
         const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/login`, { email, password }, config)
-       
+       console.log(data.user)
         dispatch({
             type: LOGIN_SUCCESS,
-            payload: data
+            payload: data.user
         })
     } catch (error) {
-        console.log(error.response)
+        console.log(error.response.data.message)
       
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message
         })
     }
+}
+
+export const loadUser = () => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        }
+        dispatch({ type: LOAD_USER_REQUEST })
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`,config)
+        dispatch({
+            type: LOAD_USER_SUCCESS,
+            payload: data.user
+        })
+    } catch (error) {
+        dispatch({
+            type: LOAD_USER_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const logout = () => async (dispatch) => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+        }
+        await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`,config)
+        dispatch({
+            type: LOGOUT_SUCCESS,
+        })
+    } catch (error) {
+        dispatch({
+            type: LOGOUT_FAIL,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const updateProfile = (userData) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PROFILE_REQUEST })
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            },
+            withCredentials: true,
+        }
+        const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/me/update`, userData, config)
+        dispatch({
+            type: UPDATE_PROFILE_SUCCESS,
+            payload: data.success
+        })
+    } catch (error) {
+        dispatch({
+            type: UPDATE_PROFILE_FAIL,
+            payload: error.response.data.message
+        })
+    }
+
 }
 
 export const clearErrors = () => async (dispatch) => {

@@ -5,9 +5,7 @@ import Loader from '../Layout/Loader'
 import Metadata from '../Layout/Metadata'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import axios from 'axios';
-import { authenticate } from '../../utils/helpers'
-import { getUser } from '../../utils/helpers';
+
 import { useDispatch, useSelector } from 'react-redux'
 import { login, clearErrors } from '../../actions/userActions'
 
@@ -50,7 +48,7 @@ const Login = () => {
     }
 
     useEffect(() => {
-        if (getUser() && redirect === 'shipping') {
+        if (isAuthenticated && redirect === 'shipping') {
             navigate(`/${redirect}`)
         }
         else if (isAuthenticated)
@@ -61,7 +59,7 @@ const Login = () => {
             notify(error)
             dispatch(clearErrors());
         }
-    }, [error, isAuthenticated, dispatch, notify, navigate, redirect])
+    }, [error, isAuthenticated, dispatch, navigate, redirect])
 
     return (
         <Fragment>

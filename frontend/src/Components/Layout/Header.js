@@ -2,36 +2,44 @@ import React, { Fragment, useEffect, useState } from 'react'
 import '../../App.css'
 import Search from './Search'
 import { Link, useNavigate } from 'react-router-dom'
-import { getUser, logout } from '../../utils/helpers';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+// import { getUser, logout } from '../../utils/helpers';
+
+
 import 'react-toastify/dist/ReactToastify.css';
+import { useDispatch, useSelector } from 'react-redux'
+
+import { logout } from '../../actions/userActions'
 const Header = ({ cartItems }) => {
 
-    const [user, setUser] = useState('')
+    // const [user, setUser] = useState('')
     const navigate = useNavigate()
-    const logoutUser = async () => {
+    const dispatch = useDispatch();
+	const { user, loading } = useSelector(state => state.auth)
+    // const logoutUser = async () => {
 
-        try {
-            await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`)
+    //     try {
+    //         await axios.get(`${process.env.REACT_APP_API}/api/v1/logout`)
 
-            setUser('')
+    //         setUser('')
 
-            logout(() => navigate('/'))
-        } catch (error) {
-            toast.error(error.response.data.message)
+    //         logout(() => navigate('/'))
+    //     } catch (error) {
+    //         toast.error(error.response.data.message)
 
-        }
-    }
+    //     }
+    // }
+    // const logoutHandler = () => {
+    //     // logoutUser();
+    //     toast.success('log out', {
+    //         position: toast.POSITION.BOTTOM_RIGHT
+    //     });
+    // }
     const logoutHandler = () => {
-        logoutUser();
-        toast.success('log out', {
-            position: toast.POSITION.BOTTOM_RIGHT
-        });
-    }
-    useEffect(() => {
-        setUser(getUser())
-    }, [])
+		dispatch(logout());
+	}
+    // useEffect(() => {
+    //     // setUser(getUser())
+    // }, [])
     return (
         <Fragment>
             <nav className="navbar row">

@@ -2,47 +2,45 @@ import React, { Fragment, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Loader from '../Layout/Loader'
 import MetaData from '../Layout/Metadata'
-import { getUser, } from '../../utils/helpers';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
-import { getToken } from '../../utils/helpers';
+
+import { useSelector } from 'react-redux'
 
 const Profile = () => {
-    const [loading, setLoading] = useState(true)
-    const [user, setUser] = useState('')
-    
+    // const [loading, setLoading] = useState(true)
+    // const [user, setUser] = useState('')
+    const { user, loading } = useSelector(state => state.auth)
+    // const getProfile = async () => {
+    //     const config = {
+    //         headers: {
+    //             // 'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${getToken()}`
+    //         }
+    //     }
+    //     try {
+    //         const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`, config)
+    //         console.log(data)
+    //         setUser(data.user)
+    //         setLoading(false)
+    //     } catch (error) {
+    //         console.log(error)
+    //         toast.error("invalid user or password", {
+    //             position: toast.POSITION.BOTTOM_RIGHT
+    //         })
+    //     }
 
-    const getProfile = async () => {
-        const config = {
-            headers: {
-                // 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${getToken()}`
-            }
-        }
-        try {
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/me`, config)
-            console.log(data)
-            setUser(data.user)
-            setLoading(false)
-        } catch (error) {
-            console.log(error)
-            toast.error("invalid user or password", {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-        }
-
-    }
+    // }
     // const getUserToken = async () => {
     //     const userToken = getToken()
     //     console.log(userToken)
     //     setToken(userToken)
     // }
-    useEffect(() => {
-        // getUserToken()
-        getProfile()
+    // useEffect(() => {
+    //     // getUserToken()
+    //     getProfile()
 
-    }, [])
+    // }, [])
     return (
         <Fragment>
             {loading ? <Loader /> : (
