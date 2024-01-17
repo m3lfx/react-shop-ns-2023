@@ -87,35 +87,97 @@ export const getAdminProducts = () => async (dispatch) => {
     }
 }
 
-export const newProduct = (productData) => async (dispatch) => {
-	try {
-		dispatch({ type: NEW_PRODUCT_REQUEST })
-		const config = {
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': `Bearer ${getToken()}`
+// export const newProduct = (productData) => async (dispatch) => {
+// 	try {
+// 		dispatch({ type: NEW_PRODUCT_REQUEST })
+// 		const config = {
+// 			headers: {
+// 				'Content-Type': 'application/json',
+// 				'Authorization': `Bearer ${getToken()}`
 
-			},
-			// withCredentials: true //correct
-		}
-		const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/admin/product/new`, productData, config)
-		dispatch({
-			type: NEW_PRODUCT_SUCCESS,
-			payload: data
-		})
-	} catch (error) {
-		dispatch({
-			type: NEW_PRODUCT_FAIL,
-			payload: error.response.data.message
-		})
-	}
+// 			},
+// 			// withCredentials: true //correct
+// 		}
+// 		const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/admin/product/new`, productData, config)
+// 		dispatch({
+// 			type: NEW_PRODUCT_SUCCESS,
+// 			payload: data
+// 		})
+// 	} catch (error) {
+// 		dispatch({
+// 			type: NEW_PRODUCT_FAIL,
+// 			payload: error.response.data.message
+// 		})
+// 	}
+// }
+
+// export const deleteProduct = (id) => async (dispatch) => {
+//     try {
+//         dispatch({ type: DELETE_PRODUCT_REQUEST })
+//         const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/admin/product/${id}`, {
+//             'Authorization': `Bearer ${getToken()}`
+//         })
+//         dispatch({
+//             type: DELETE_PRODUCT_SUCCESS,
+//             payload: data.success
+//         })
+//     } catch (error) {
+//         dispatch({
+//             type: DELETE_PRODUCT_FAIL,
+//             payload: error.response.data.message
+//         })
+//     }
+// }
+
+// export const updateProduct = (id, productData) => async (dispatch) => {
+//     try {
+//         dispatch({ type: UPDATE_PRODUCT_REQUEST })
+//         const config = {
+//             headers: {
+//                 'Content-Type': 'application/json',
+// 				'Authorization': `Bearer ${getToken()}`
+//             }
+//         }
+//         const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/admin/product/${id}`, productData, config)
+//         dispatch({
+//             type: UPDATE_PRODUCT_SUCCESS,
+//             payload: data.success
+//         })
+//     } catch (error) {
+//         dispatch({
+//             type: UPDATE_PRODUCT_FAIL,
+//             payload: error.response.data.message
+//         })
+//     }
+// }
+
+export const newProduct = (productData) => async (dispatch) => {
+    try {
+        dispatch({ type: NEW_PRODUCT_REQUEST })
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true //correct
+        }
+        const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/admin/product/new`, productData, config)
+        dispatch({
+            type: NEW_PRODUCT_SUCCESS,
+            payload: data
+        })
+    } catch (error) {
+        dispatch({
+            type: NEW_PRODUCT_FAIL,
+            payload: error.response.data.message
+        })
+    }
 }
 
 export const deleteProduct = (id) => async (dispatch) => {
     try {
         dispatch({ type: DELETE_PRODUCT_REQUEST })
         const { data } = await axios.delete(`${process.env.REACT_APP_API}/api/v1/admin/product/${id}`, {
-            'Authorization': `Bearer ${getToken()}`
+            withCredentials: true //correct
         })
         dispatch({
             type: DELETE_PRODUCT_SUCCESS,
@@ -134,9 +196,9 @@ export const updateProduct = (id, productData) => async (dispatch) => {
         dispatch({ type: UPDATE_PRODUCT_REQUEST })
         const config = {
             headers: {
-                'Content-Type': 'application/json',
-				'Authorization': `Bearer ${getToken()}`
-            }
+                'Content-Type': 'application/json'
+            },
+            withCredentials: true
         }
         const { data } = await axios.put(`${process.env.REACT_APP_API}/api/v1/admin/product/${id}`, productData, config)
         dispatch({
