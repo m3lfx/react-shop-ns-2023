@@ -60,21 +60,21 @@ const ProductsList = () => {
             dispatch(clearErrors())
         }
 
-        if (deleteError) {
-            toast.error(deleteError, {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
-        }
+        // if (deleteError) {
+        //     toast.error(deleteError, {
+        //         position: toast.POSITION.BOTTOM_RIGHT
+        //     });
+        // }
 
-        if (isDeleted) {
-            dispatch({ type: DELETE_PRODUCT_RESET })
-            toast.success('Product deleted successfully', {
-                position: toast.POSITION.BOTTOM_RIGHT
-            })
-            navigate('/admin/products');
+        // if (isDeleted) {
+        //     dispatch({ type: DELETE_PRODUCT_RESET })
+        //     toast.success('Product deleted successfully', {
+        //         position: toast.POSITION.BOTTOM_RIGHT
+        //     })
+        //     navigate('/admin/products');
             
 
-        }
+        // }
 
     }, [error, deleteError, isDeleted, dispatch, navigate])
 
