@@ -32,79 +32,80 @@ import UpdateUser from './Components/Admin/UpdateUser';
 import ProtectedRoute from './Components/Route/ProtectedRoute';
 import ProductReviews from './Components/Admin/ProductReviews';
 function App() {
-  const [state, setState] = useState({
-    cartItems: localStorage.getItem('cartItems')
-      ? JSON.parse(localStorage.getItem('cartItems'))
-      : [],
-    shippingInfo: localStorage.getItem('shippingInfo')
-      ? JSON.parse(localStorage.getItem('shippingInfo'))
-      : {},
-  })
-  const addItemToCart = async (id, quantity) => {
-    console.log(id, quantity)
-    try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/${id}`)
-      const item = {
-        product: data.product._id,
-        name: data.product.name,
-        price: data.product.price,
-        image: data.product.images[0].url,
-        stock: data.product.stock,
-        quantity: quantity
-      }
+  // const [state, setState] = useState({
+  //   cartItems: localStorage.getItem('cartItems')
+  //     ? JSON.parse(localStorage.getItem('cartItems'))
+  //     : [],
+  //   shippingInfo: localStorage.getItem('shippingInfo')
+  //     ? JSON.parse(localStorage.getItem('shippingInfo'))
+  //     : {},
+  // })
+  // const addItemToCart = async (id, quantity) => {
+  //   console.log(id, quantity)
+  //   try {
+  //     const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/product/${id}`)
+  //     const item = {
+  //       product: data.product._id,
+  //       name: data.product.name,
+  //       price: data.product.price,
+  //       image: data.product.images[0].url,
+  //       stock: data.product.stock,
+  //       quantity: quantity
+  //     }
 
-      const isItemExist = state.cartItems.find(i => i.product === item.product)
-      console.log(isItemExist, state)
-      // setState({
-      //   ...state,
-      //   cartItems: [...state.cartItems, item]
-      // })
-      if (isItemExist) {
-        setState({
-          ...state,
-          cartItems: state.cartItems.map(i => i.product === isItemExist.product ? item : i)
-        })
-      }
-      else {
-        setState({
-          ...state,
-          cartItems: [...state.cartItems, item]
-        })
-      }
+  //     const isItemExist = state.cartItems.find(i => i.product === item.product)
+  //     console.log(isItemExist, state)
+  //     // setState({
+  //     //   ...state,
+  //     //   cartItems: [...state.cartItems, item]
+  //     // })
+  //     if (isItemExist) {
+  //       setState({
+  //         ...state,
+  //         cartItems: state.cartItems.map(i => i.product === isItemExist.product ? item : i)
+  //       })
+  //     }
+  //     else {
+  //       setState({
+  //         ...state,
+  //         cartItems: [...state.cartItems, item]
+  //       })
+  //     }
 
-      toast.success('Item Added to Cart', {
-        position: toast.POSITION.BOTTOM_RIGHT
-      })
+  //     toast.success('Item Added to Cart', {
+  //       position: toast.POSITION.BOTTOM_RIGHT
+  //     })
 
-    } catch (error) {
-      toast.error(error, {
-        position: toast.POSITION.TOP_LEFT
-      });
-      // navigate('/')
-    }
+  //   } catch (error) {
+  //     toast.error(error, {
+  //       position: toast.POSITION.TOP_LEFT
+  //     });
+  //     // navigate('/')
+  //   }
 
-  }
+  // }
 
-  const removeItemFromCart = async (id) => {
-    setState({
-      ...state,
-      cartItems: state.cartItems.filter(i => i.product !== id)
-    })
-    localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
-  }
+  // const removeItemFromCart = async (id) => {
+  //   setState({
+  //     ...state,
+  //     cartItems: state.cartItems.filter(i => i.product !== id)
+  //   })
+  //   localStorage.setItem('cartItems', JSON.stringify(state.cartItems))
+  // }
 
-  const saveShippingInfo = async (data) => {
-    setState({
-      ...state,
-      shippingInfo: data
-    })
-    localStorage.setItem('shippingInfo', JSON.stringify(data))
-  }
+  // const saveShippingInfo = async (data) => {
+  //   setState({
+  //     ...state,
+  //     shippingInfo: data
+  //   })
+  //   localStorage.setItem('shippingInfo', JSON.stringify(data))
+  // }
 
   return (
     <div className="App">
       <Router>
-        <Header cartItems={state.cartItems} />
+        {/* <Header cartItems={state.cartItems} /> */}
+        <Header />
         <Routes>
           <Route path="/" element={<Home />} exact="true" />
           <Route path="/product/:id" element={<ProductDetails cartItems={state.cartItems} addItemToCart={addItemToCart} />} exact="true" />
@@ -120,13 +121,19 @@ function App() {
           <Route path="/password/update" element={<UpdatePassword />} />
 
           <Route path="/cart" element={<Cart cartItems={state.cartItems} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />} exact="true" />
-          <Route path="/shipping" element={<Shipping
+          {/* <Route path="/shipping" element={<Shipping
             shipping={state.shippingInfo}
             saveShippingInfo={saveShippingInfo}
           />}
+          /> */}
+          <Route path="/shipping" element={<Shipping
+            
+          />}
           />
-          <Route path="/confirm" element={<ConfirmOrder cartItems={state.cartItems} shippingInfo={state.shippingInfo} />} />
-          <Route path="/payment" element={<Payment cartItems={state.cartItems} shippingInfo={state.shippingInfo} />} />
+          {/* <Route path="/confirm" element={<ConfirmOrder cartItems={state.cartItems} shippingInfo={state.shippingInfo} />} />
+          <Route path="/payment" element={<Payment cartItems={state.cartItems} shippingInfo={state.shippingInfo} />} /> */}
+          <Route path="/confirm" element={<ConfirmOrder  />} />
+          <Route path="/payment" element={<Payment  />} />
           <Route path="/success" element={<OrderSuccess />} />
           <Route path="/orders/me" element={<ListOrders />} />
           <Route path="/order/:id" element={<OrderDetails />} />
