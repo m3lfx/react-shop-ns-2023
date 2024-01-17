@@ -5,41 +5,44 @@ import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from "react-router-dom";
+import { forgotPassword, clearErrors } from '../../actions/userActions'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('')
-    const [loading, setLoading] = useState('')
-    
+    // const [loading, setLoading] = useState('')
+    const dispatch = useDispatch();
+    const { error, loading, message } = useSelector(state => state.forgotPassword)
     const navigate = useNavigate()
 
-    const forgotPassword = async (formData) => {
-        const config = {
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }
-        try {
-            const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/password/forgot`, formData, config)
-            console.log(data.message)
+    // const forgotPassword = async (formData) => {
+    //     const config = {
+    //         headers: {
+    //             'Content-Type': 'application/json'
+    //         }
+    //     }
+    //     try {
+    //         const { data } = await axios.post(`${process.env.REACT_APP_API}/api/v1/password/forgot`, formData, config)
+    //         console.log(data.message)
             
-            setLoading(false)
-            toast.success(data.message, {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
-            navigate('/login')
-        } catch (error) {
-            toast.error(error.response.data.message, {
-                position: toast.POSITION.BOTTOM_RIGHT
-            });
-        }
-    }
+    //         setLoading(false)
+    //         toast.success(data.message, {
+    //             position: toast.POSITION.BOTTOM_RIGHT
+    //         });
+    //         navigate('/login')
+    //     } catch (error) {
+    //         toast.error(error.response.data.message, {
+    //             position: toast.POSITION.BOTTOM_RIGHT
+    //         });
+    //     }
+    // }
 
 
     const submitHandler = (e) => {
         e.preventDefault();
         const formData = new FormData();
         formData.set('email', email);
-        forgotPassword(formData)
+        dispatch(forgotPassword(formData))
     }
 
     return (
