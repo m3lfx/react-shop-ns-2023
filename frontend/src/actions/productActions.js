@@ -69,24 +69,22 @@ export const getProductDetails = (id) => async (dispatch) => {
 }
 
 export const getAdminProducts = () => async (dispatch) => {
-	try {
-		dispatch({ type: ADMIN_PRODUCTS_REQUEST })
-		const config = {
-			headers: {
-				'Authorization': `Bearer ${getToken()}`
-			}
-		}
-		const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/admin/products`, config)
-		dispatch({
-			type: ADMIN_PRODUCTS_SUCCESS,
-			payload: data.products
-		})
-	} catch (error) {
-		dispatch({
-			type: ADMIN_PRODUCTS_FAIL,
-			payload: error.response.data.message
-		})
-	}
+    try {
+        dispatch({ type: ADMIN_PRODUCTS_REQUEST })
+        const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/admin/products`, {
+            //AxiosRequestConfig parameter
+            withCredentials: true //correct
+        })
+        dispatch({
+            type: ADMIN_PRODUCTS_SUCCESS,
+            payload: data.products
+        })
+    } catch (error) {
+        dispatch({
+            type: ADMIN_PRODUCTS_FAIL,
+            payload: error.response.data.message
+        })
+    }
 }
 
 export const newProduct = (productData) => async (dispatch) => {
