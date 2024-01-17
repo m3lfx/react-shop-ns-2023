@@ -10,10 +10,10 @@ import ListReviews from '../Review/ListReviews'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { getProductDetails, clearErrors } from '../../actions/productActions'
+import { addItemToCart } from '../../actions/cartActions'
 
 
-
-const ProductDetails = ({ addItemToCart, cartItems }) => {
+const ProductDetails = () => {
     const dispatch = useDispatch();
     const { loading, error, product } = useSelector(state => state.productDetails);
     // const [loading, setLoading] = useState(true)
@@ -52,8 +52,13 @@ const ProductDetails = ({ addItemToCart, cartItems }) => {
         const qty = count.valueAsNumber - 1;
         setQuantity(qty)
     }
-    const addToCart = async () => {
-        await addItemToCart(id, quantity);
+    // const addToCart = async () => {
+    //     await addItemToCart(id, quantity);
+    // }
+
+    const addToCart = () => {
+        dispatch(addItemToCart(id, quantity));
+        successMsg('Item Added to Cart')
     }
     function setUserRatings() {
         const stars = document.querySelectorAll('.star');
@@ -130,7 +135,7 @@ const ProductDetails = ({ addItemToCart, cartItems }) => {
         }
     }, [id, error, errorReview, success, dispatch,]);
 
-    localStorage.setItem('cartItems', JSON.stringify(cartItems))
+    // localStorage.setItem('cartItems', JSON.stringify(cartItems))
 
     return (
         <Fragment>

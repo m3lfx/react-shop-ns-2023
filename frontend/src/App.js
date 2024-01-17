@@ -108,7 +108,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} exact="true" />
-          <Route path="/product/:id" element={<ProductDetails cartItems={state.cartItems} addItemToCart={addItemToCart} />} exact="true" />
+          {/* <Route path="/product/:id" element={<ProductDetails cartItems={state.cartItems} addItemToCart={addItemToCart} />} exact="true" /> */}
+          <Route path="/product/:id" element={<ProductDetails  />} exact="true" />
           <Route path="/search/:keyword" element={<Home />} exact="true" />
 
           <Route path="/login" element={<Login />} exact="true" />
@@ -120,7 +121,8 @@ function App() {
           <Route path="/password/reset/:token" element={<NewPassword />} exact="true" />
           <Route path="/password/update" element={<UpdatePassword />} />
 
-          <Route path="/cart" element={<Cart cartItems={state.cartItems} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />} exact="true" />
+          {/* <Route path="/cart" element={<Cart cartItems={state.cartItems} addItemToCart={addItemToCart} removeItemFromCart={removeItemFromCart} />} exact="true" /> */}
+          <Route path="/cart" element={<Cart  />} exact="true" />
           {/* <Route path="/shipping" element={<Shipping
             shipping={state.shippingInfo}
             saveShippingInfo={saveShippingInfo}

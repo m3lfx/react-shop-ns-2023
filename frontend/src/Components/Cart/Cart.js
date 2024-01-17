@@ -1,26 +1,55 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Link } from 'react-router-dom'
 import MetaData from '../Layout/Metadata'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItemToCart, removeItemFromCart } from '../../actions/cartActions'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 // const Cart = ({ addItemToCart, cartItems, removeItemFromCart }) => {
     const Cart = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch();
+    let { id } = useParams();
     const { cartItems } = useSelector(state => state.cart)
+    const { loading, error, product } = useSelector(state => state.productDetails);
+    const [quantity, setQuantity] = useState(1)
+    const notify = (error) => toast.error(error, {
+        position: toast.POSITION.TOP_LEFT
+    });
+    const successMsg = (message = '') => toast.success(message, {
+        position: toast.POSITION.TOP_LEFT
+    });
 
-    const increaseQty = (id, quantity, stock) => {
-        const newQty = quantity + 1;
-        if (newQty > stock) return;
-        dispatch(addItemToCart(id, newQty));
+    // const increaseQty = (id, quantity, stock) => {
+    //     const newQty = quantity + 1;
+    //     if (newQty > stock) return;
+    //     // dispatch(addItemToCart(id, newQty));
+    // }
+
+    // const decreaseQty = (id, quantity) => {
+    //     const newQty = quantity - 1;
+    //     if (newQty <= 0) return;
+    //     dispatch(addItemToCart(id, newQty));
+    // }
+
+    const increaseQty = () => {
+        const count = document.querySelector('.count')
+        if (count.valueAsNumber >= product.stock) return;
+        const qty = count.valueAsNumber + 1;
+        setQuantity(qty)
+    }
+    const decreaseQty = () => {
+        const count = document.querySelector('.count')
+        if (count.valueAsNumber <= 1) return;
+        const qty = count.valueAsNumber - 1;
+        setQuantity(qty)
     }
 
-    const decreaseQty = (id, quantity) => {
-        const newQty = quantity - 1;
-        if (newQty <= 0) return;
-        dispatch(addItemToCart(id, newQty));
+    const addToCart = () => {
+        dispatch(addItemToCart(id, quantity));
+        successMsg('Item Added to Cart')
     }
 
     const removeCartItemHandler = (id) => {

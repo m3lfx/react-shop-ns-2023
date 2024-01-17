@@ -9,12 +9,13 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useDispatch, useSelector } from 'react-redux'
 
 import { logout } from '../../actions/userActions'
-const Header = ({ cartItems }) => {
+const Header = () => {
 
     // const [user, setUser] = useState('')
     const navigate = useNavigate()
     const dispatch = useDispatch();
 	const { user, loading } = useSelector(state => state.auth)
+    const { cartItems } = useSelector(state => state.cart)
     // const logoutUser = async () => {
 
     //     try {
