@@ -3,8 +3,11 @@ import { Link, useNavigate } from 'react-router-dom'
 import MetaData from '../Layout/Metadata'
 import CheckoutSteps from './CheckoutSteps'
 import { getUser } from '../../utils/helpers'
-const ConfirmOrder = ({cartItems, shippingInfo}) => {
-    const [user, setUser] = useState(getUser() ? getUser() : {})
+import { useSelector } from 'react-redux'
+const ConfirmOrder = () => {
+    // const [user, setUser] = useState(getUser() ? getUser() : {})
+    const { cartItems, shippingInfo } = useSelector(state => state.cart)
+    const { user } = useSelector(state => state.auth)
     let navigate = useNavigate();
     // Calculate Order Prices
     const itemsPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0)
@@ -68,7 +71,7 @@ const ConfirmOrder = ({cartItems, shippingInfo}) => {
                     <div id="order_summary">
                         <h4>Order Summary</h4>
                         <hr />
-                        <p>Subtotal:  <span className="order-summary-values">${itemsPrice}</span></p>
+                        <p>Subtotal:  <span className="order-summary-values">${itemsPrice.toFixed(2)}</span></p>
                         <p>Shipping: <span className="order-summary-values">${shippingPrice}</span></p>
                         <p>Tax:  <span className="order-summary-values">${taxPrice}</span></p>
 
