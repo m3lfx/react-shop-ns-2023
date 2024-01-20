@@ -74,7 +74,7 @@ const OrdersList = () => {
         }
     }, [error, isDeleted, dispatch, navigate])
     const deleteOrderHandler = (id) => {
-        deleteOrder(id)
+        dispatch(deleteOrder(id))
     }
     const setOrders = () => {
         const data = {
