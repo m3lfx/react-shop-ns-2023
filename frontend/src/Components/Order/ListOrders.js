@@ -7,38 +7,42 @@ import Loader from '../Layout/Loader'
 import axios from 'axios'
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getToken } from '../../utils/helpers'
+// import { getToken } from '../../utils/helpers'
+import { useDispatch, useSelector } from 'react-redux'
+import { myOrders, clearErrors } from '../../actions/orderActions'
 
 const ListOrders = () => {
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState('')
-    const [myOrdersList, setMyOrdersList] = useState([])
+    const dispatch = useDispatch();
+    const { loading, error, orders } = useSelector(state => state.myOrders);
+    // const [loading, setLoading] = useState(true)
+    // const [error, setError] = useState('')
+    // const [myOrdersList, setMyOrdersList] = useState([])
 
-    const myOrders = async () => {
-        try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${getToken()}`
-                }
-            }
-            const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/orders/me`, config)
-            console.log(data)
-            setMyOrdersList(data.orders)
-            setLoading(false)
+    // const myOrders = async () => {
+    //     try {
+    //         const config = {
+    //             headers: {
+    //                 'Content-Type': 'multipart/form-data',
+    //                 'Authorization': `Bearer ${getToken()}`
+    //             }
+    //         }
+    //         const { data } = await axios.get(`${process.env.REACT_APP_API}/api/v1/orders/me`, config)
+    //         console.log(data)
+    //         setMyOrdersList(data.orders)
+    //         setLoading(false)
 
-        } catch (error) {
-            setError(error.response.data.message)
-        }
-    }
+    //     } catch (error) {
+    //         setError(error.response.data.message)
+    //     }
+    // }
     useEffect(() => {
-        myOrders();
+        dispatch(myOrders());
         if (error) {
             toast.error(error, {
                 position: toast.POSITION.BOTTOM_RIGHT
             });
         }
-    }, [error])
+    }, [error, dispatch])
 
     const setOrders = () => {
         const data = {
@@ -72,7 +76,7 @@ const ListOrders = () => {
             rows: []
         }
 
-        myOrdersList.forEach(order => {
+        orders.forEach(order => {
             data.rows.push({
                 id: order._id,
                 numOfItems: order.orderItems.length,
