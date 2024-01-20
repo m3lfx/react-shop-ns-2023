@@ -32,6 +32,7 @@ export const newOrderReducer = (state = {}, action) => {
             }
         case CREATE_ORDER_SUCCESS:
             return {
+                ...state,
                 loading: false,
                 order: action.payload
             }
