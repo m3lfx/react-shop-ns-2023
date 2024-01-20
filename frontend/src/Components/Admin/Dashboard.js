@@ -15,16 +15,17 @@ import ProductSalesChart from './ProductSalesChart';
 
 import { useDispatch, useSelector } from 'react-redux'
 import { getAdminProducts } from '../../actions/productActions'
-
+import { allOrders } from '../../actions/orderActions'
 const Dashboard = () => {
     const dispatch = useDispatch();
+    const { orders, totalAmount, loading } = useSelector(state => state.allOrders)
     // const [products, setProducts] = useState([])
     const [error, setError] = useState('')
     const [users, setUsers] = useState([])
-    const [orders, setOrders] = useState([])
+    // const [orders, setOrders] = useState([])
     // const [loading, setLoading] = useState(true)
-    const [totalAmount, setTotalAmount] = useState([])
-    const { products, loading  } = useSelector(state => state.products)
+    // const [totalAmount, setTotalAmount] = useState([])
+    const { products,   } = useSelector(state => state.products)
     let outOfStock = 0;
     products.forEach(product => {
         if (product.stock === 0) {
@@ -53,7 +54,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         dispatch(getAdminProducts())
-        // allOrders()
+        dispatch(allOrders())
         // allUsers()
     }, [dispatch])
 
@@ -75,8 +76,8 @@ const Dashboard = () => {
                                 <div className="col-xl-12 col-sm-12 mb-3">
                                     <div className="card text-white bg-primary o-hidden h-100">
                                         <div className="card-body">
-                                            {/* <div className="text-center card-font-size">Total Amount<br /> <b>${totalAmount && totalAmount.toFixed(2)}</b>
-                                            </div> */}
+                                            <div className="text-center card-font-size">Total Amount<br /> <b>${totalAmount && totalAmount.toFixed(2)}</b>
+                                            </div>
 
                                         </div>
                                     </div>
